@@ -1,0 +1,109 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Testing
+coverage/
+*.log
+
+# Production
+dist/
+build/
+.next/
+out/
+
+# Environment
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Database
+*.sqlite
+*.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Misc
+.cache/
+.temp/
+.tmp/
+
+# Dev/session docs (keep only README.md and DEPLOYMENT.md)
+# Ignore ALL root .md files except README.md and DEPLOYMENT.md
+NEXT_STEPS.md
+PRIORITY_*.md
+PROJECT_*.md
+QUICKSTART.md
+QUICK_*.md
+RESTART_*.md
+SERVER_*.md
+SETUP_*.md
+STARTUP_*.md
+SUPABASE_*.md
+TESTING_*.md
+TEST_*.md
+TIMESHEET_*.md
+UI_*.md
+USER_*.md
+ZERO_*.md
+ADMIN_*.md
+ANALYSE_*.md
+API_DESIGN.md
+ARCHITECTURE.md
+AUTO_*.md
+BCRYPT_*.md
+BUG_*.md
+BUTTON_*.md
+CHANGELOG.md
+DATABASE_*.md
+DEPLOYMENT_CHECKLIST.md
+DEPLOYMENT_MATHFILS_ORG.md
+DESIGN_SYSTEM.md
+DOMAIN_CONFIGURATION.md
+DRAFT_*.md
+EMAIL_*.md
+EXPORT_*.md
+FINAL_*.md
+FRONTEND_*.md
+HARD_RESTART.md
+IMPLEMENTATION_*.md
+INVITATION_*.md
+LOGIN_*.md
+MAILGUN_*.md
+MISSING_*.md
+OPTIMIZATIONS_*.md
+PAYROLL_*.md
+RESET_PASSWORD_*.md
+SESSION_*.md
+STARTUP_SCRIPT.md
+TESTING_CHECKLIST.md
+VERIFICATION_*.md
+WEEKLY_*.md
+
+# Dev scripts
+test-*.js
+test-*.ps1
+check-db.js
+setup-frontend.ps1
+start-project.ps1
+public/

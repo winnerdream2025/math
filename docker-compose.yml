@@ -1,0 +1,73 @@
+version: '3.8'
+
+# ════════════════════════════════════════════════════
+#  Math & Fils Timesheet — Docker Compose
+# ════════════════════════════════════════════════════
+#
+#  Production:  docker compose --profile production up -d --build
+#  Development: docker compose --profile dev up -d --build
+#
+#  Before production: copy .env.example → .env in both
+#  backend/ and frontend/ and fill in real values.
+# ════════════════════════════════════════════════════
+
+services:
+  # ── PostgreSQL (only needed if NOT using Supabase) ──
+  postgres:
+    image: postgres:15-alpine
+    container_name: mathfils_postgres
+    profiles: ['dev', 'self-hosted']
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: mathfils
+      POSTGRES_PASSWORD: mathfils123
+      POSTGRES_DB: timesheet
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U mathfils']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── Backend (NestJS API) ────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: mathfils_backend
+    restart: unless-stopped
+    profiles: ['production', 'dev']
+    env_file: ./backend/.env
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+    ports:
+      - '3001:3001'
+    healthcheck:
+      test: ['CMD', 'wget', '--no-verbose', '--tries=1', '--spider', 'http://localhost:3001/health']
+      interval: 30s
+      timeout: 5s
+      start_period: 15s
+      retries: 3
+
+  # ── Frontend (Next.js) ─────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:3001/api/v1}
+    container_name: mathfils_frontend
+    restart: unless-stopped
+    profiles: ['production', 'dev']
+    ports:
+      - '3000:3000'
+    depends_on:
+      backend:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
+    driver: local
