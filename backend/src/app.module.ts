@@ -27,11 +27,8 @@ import { InvitationsModule } from './modules/invitations/invitations.module';
       type: 'postgres',
       url: process.env.DATABASE_URL || 'postgresql://mathfils:mathfils123@localhost:5432/timesheet',
       autoLoadEntities: true,
-      synchronize: process.env.NODE_ENV !== 'production',
+      synchronize: true,
       logging: process.env.NODE_ENV === 'development',
-      ssl: process.env.DATABASE_URL?.includes('supabase.com')
-        ? { rejectUnauthorized: false }
-        : false,
     }),
     AuthModule,
     UsersModule,
